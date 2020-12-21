@@ -1,0 +1,31 @@
+    
+<div class="modal fade" id="SignUpModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+    <div class="modal-content">
+        <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">CREATE ADMIN</h5>
+        <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+                   
+            <form id="signUpForm" action="/create" method="POST">
+                    <input type="hidden" name="idToken" class="idToken" value="">
+                    
+                    <input type="text" class="form-control" name="username" id="signUpUsername" placeholder="USER NAME"><br>
+                    
+                    <input type="email" class="form-control" name="email" id="signUpEmail" placeholder="EMAIL"><br>
+                    
+                    <input type="password" class="form-control" name="password" id="signUpPassword" placeholder="PASSWORD"><br>
+                
+                    <input type="text" class="form-control" name="mobile" id="signUpMobile" placeholder="MOBILE NUMBER"><br>
+
+                    <input type="text" class="form-control" name="bio" id="signUpBio" placeholder="BIO"><br>
+                
+                    <button id="closeSignUp" type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary" id="createAdmin">CREATE ADMIN</button>
+            </form>
+
+        </div>
+    </div>
+    </div>
+</div>

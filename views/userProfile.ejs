@@ -1,0 +1,187 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>USERS LIST</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-CuOF+2SnTUfTwSZjCXf01h7uYhfOBuxIhGKPbfEJ3+FqH/s6cIFN9bGr1HmAg4fQ" crossorigin="anonymous">
+    <!-- The core Firebase JS SDK is always required and must be listed first -->
+    <script src="https://www.gstatic.com/firebasejs/8.1.2/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.1.2/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.1.2/firebase-firestore.js"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.js" integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script>
+    <!-- configuration -->
+    <script src="../js/config.js"></script>
+    
+</head>
+
+
+<body>
+    <%- include('partials/navbar') %> 
+
+    <div class="container p-2">
+        <div class="p-3 col-12 bg-primary border border-primary" id="usersList" >
+            <h1 class="text-center">USERS</h1>
+            
+            <div class="row mb-1">
+                <div class="col-2 bg-info text-center"><b>NAME</b></div>
+                <div class="col-1 bg-white text-center"><b>GENDER</b></div>
+                <div class="col-3 bg-info text-center"><b>EMAIL</b></div>
+                <div class="col-4 bg-white text-center"><b>ADDRESS</b></div>
+                <div class="col-1 bg-info text-center"><b>BALANCE</b></div>
+                <div class="col-1 bg-white text-center"><b>DUE</b></div>
+
+            </div>
+            <% snapshot.forEach(element => { %>
+                <div class="row">
+                    <div class="col-2 bg-info text-center"><b><%= element.data().Name%></b></div>
+                    <div class="col-1 bg-white text-center"><b><%= element.data().Gender%></b></div>
+                    <div class="col-3 bg-info text-center"><b><%= element.data().Email%></b></div>
+                    <div class="col-4 bg-white text-center"><b><%= element.data().Address%></b></div>
+                    <div class="col-1 bg-info text-center"><b><%= element.data().Balance%></b></div>
+                    <div class="col-1 bg-white text-center"><b><%= element.data().Due%></b></div>
+                </div>
+            <% }) %>
+        </div>
+
+    </div>
+
+    <div class="container p-2">
+        <ul class="nav nav-tabs" id="myTab" role="tablist">
+            <li class="nav-item" role="presentation">
+                <a class="nav-link active" id="applied-tab" data-bs-toggle="tab" href="#applied" role="tab" aria-controls="applied" aria-selected="true">LOANS APPLIED</a>
+            </li>
+            <li class="nav-item" role="presentation">
+                <a class="nav-link" id="accepted-tab" data-bs-toggle="tab" href="#accepted" role="tab" aria-controls="accepted" aria-selected="false">LOANS ACCEPTED</a>
+            </li>  
+            <li class="nav-item" role="presentation">
+                <a class="nav-link" id="rejected-tab" data-bs-toggle="tab" href="#rejected" role="tab" aria-controls="rejected" aria-selected="false">LOANS REJECTED</a>
+            </li>   
+        </ul>
+
+        <div class="tab-content" id="myTabContent">
+            <div class="tab-pane fade show active p-3 bg-secondary" id="applied" role="tabpanel" aria-labelledby="applied-tab">
+                <div class="row mb-1">
+                    <div class="col-2 border-right border-left bg-success text-center"><b>USER ID</b></div>
+                    <div class="col-2 border-right bg-success text-center"><b>MONEY TAKEN</b></div>
+                    <div class="col-2 border-right bg-success text-center"><b>MONTHS</b></div>
+                    <div class="col-2 border-right bg-success text-center"><b>PAYABLE</b></div>
+                    <div class="col-1 border-right bg-success text-center"><b>STATUS</b></div>
+                    <div class="col-2 border-right bg-success text-center"><b>APPROVE/REJECT</b></div>
+                </div>
+                <% loansSnap.forEach(element => { %>
+                    <% if(element.data().status == 0){ %>
+                        <div class="row mb-1">
+                            <div class="col-2 bg-info text-center"><b><%= element.data().user_id%></b></div>
+                            <div class="col-2 bg-danger text-center"><b><%= element.data().money%></b></div>
+                            <div class="col-2 bg-info text-center"><b><%= element.data().months %></b></div>
+                            <div class="col-2 bg-danger text-center"><b><%= element.data().money+500%></b></div>
+                            <div class="col-1 bg-info text-center"><b><%= element.data().status %></b></div>
+                            <div class="col-2 bg-warning text-center">
+                                <form action="/loans/accept" method="POST" class="mt-3">
+                                    <input type="hidden" name="idToken" class="idToken" value="">
+                                    <input type="hidden" name="loanUid" value="<%=element.id%>">
+                                    <button class="btn btn-success btn-sm mb-1 accept" type="submit">APPROVE</button>
+                                </form>
+                                <form action="/loans/reject" method="POST">    
+                                    <input type="hidden" name="idToken" class="idToken" value="">
+                                    <input type="hidden" name="loanUid" value="<%=element.id%>">
+                                    <button class="btn btn-danger btn-sm reject" type="submit">REJECT</button>
+                                </form>
+                                <!-- <button class="btn btn-success btn-sm mb-1 accept" value="<%=element.id%>">APPROVE</button>
+                                <button class="btn btn-danger btn-sm reject" value="<%=element.id%>">REJECT</button> -->
+                            </div>
+                        </div>
+                    <% } %>                    
+                <% }) %>
+            </div>
+            <div class="tab-pane fade p-3 bg-secondary" id="accepted" role="tabpanel" aria-labelledby="accepted-tab">
+                <div class="row mb-1">
+                    <div class="col-2 border-right border-left bg-success text-center"><b>USER ID</b></div>
+                    <div class="col-2 border-right bg-success text-center"><b>MONEY TAKEN</b></div>
+                    <div class="col-2 border-right bg-success text-center"><b>MONTHS</b></div>
+                    <div class="col-2 border-right bg-success text-center"><b>PAYABLE</b></div>
+                    <div class="col-1 border-right bg-success text-center"><b>STATUS</b></div>
+                    
+                </div>
+                <% loansSnap.forEach(element => { %>
+                    <% if(element.data().status == 1){ %>
+                        <div class="row mb-1">
+                            <div class="col-2 bg-info text-center"><b><%= element.data().user_id%></b></div>
+                            <div class="col-2 bg-danger text-center"><b><%= element.data().money%></b></div>
+                            <div class="col-2 bg-info text-center"><b><%= element.data().months %></b></div>
+                            <div class="col-2 bg-danger text-center"><b><%= element.data().money+500%></b></div>
+                            <div class="col-1 bg-info text-center"><b><%= element.data().status %></b></div>
+                            
+                        </div>
+                    <% } %>                    
+                <% }) %>
+            </div>
+            <div class="tab-pane fade p-3 bg-secondary" id="rejected" role="tabpanel" aria-labelledby="rejected-tab">
+                <div class="row mb-1">
+                    <div class="col-2 border-right border-left bg-success text-center"><b>USER ID</b></div>
+                    <div class="col-2 border-right bg-success text-center"><b>MONEY TAKEN</b></div>
+                    <div class="col-2 border-right bg-success text-center"><b>MONTHS</b></div>
+                    <div class="col-2 border-right bg-success text-center"><b>PAYABLE</b></div>
+                    <div class="col-1 border-right bg-success text-center"><b>STATUS</b></div>
+                    
+                </div>
+                <% loansSnap.forEach(element => { %>
+                    <% if(element.data().status == -1){ %>
+                        <div class="row mb-1">
+                            <div class="col-2 bg-info text-center"><b><%= element.data().user_id%></b></div>
+                            <div class="col-2 bg-danger text-center"><b><%= element.data().money%></b></div>
+                            <div class="col-2 bg-info text-center"><b><%= element.data().months %></b></div>
+                            <div class="col-2 bg-danger text-center"><b><%= element.data().money+500%></b></div>
+                            <div class="col-1 bg-info text-center"><b><%= element.data().status %></b></div>
+                        
+                        </div>
+                    <% } %>                    
+                <% }) %>
+            </div>
+        </div>
+        
+    </div>
+
+    
+    <!-- SIGN UP Modal -->
+    <%- include('partials/signUp') %> 
+        
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-alpha3/dist/js/bootstrap.bundle.min.js" integrity="sha384-popRpmFF9JQgExhfw5tZT4I9/CI5e2QcuUZPOVXb1m7qUmeR2b50u+YFEYe1wgzy" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW" crossorigin="anonymous"></script>
+    <script>
+        auth.onAuthStateChanged((user) => {
+            if(user){
+                //SETTING IDTOKEN VALUES
+                firebase.auth().currentUser.getIdToken(true).then((idToken) => {
+                    var idTokenClass = document.querySelectorAll(".idToken")
+                    for (var i = 0; i < idTokenClass.length; i++) {
+                        idTokenClass[i].value = idToken;
+                    }
+                }).catch(function(error) {
+                        console.log(err.message)
+                });
+          
+                user.getIdTokenResult().then((idTokenResult) => {
+                    var admin = idTokenResult.claims.admin
+                    if(admin == true){
+                        console.log('User Logged in : ', user.uid )
+                    }
+                    else{
+                        auth.signOut();
+                        window.location.href = "/login"
+                    }
+                })
+            }
+            else{
+                window.location.href = "/login"
+                console.log("USER LOGGED OUT")
+            }
+        })
+    </script>
+    <script src="../js/navbar.js"></script>
+</body>
+</html>
+
+
+

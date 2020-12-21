@@ -1,0 +1,68 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LOGIN PAGE</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-CuOF+2SnTUfTwSZjCXf01h7uYhfOBuxIhGKPbfEJ3+FqH/s6cIFN9bGr1HmAg4fQ" crossorigin="anonymous">
+    <!-- The core Firebase JS SDK is always required and must be listed first -->
+    <script src="https://www.gstatic.com/firebasejs/8.1.2/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.1.2/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.1.2/firebase-firestore.js"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.js" integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script>
+    <!-- configuration -->
+    <script src="/js/config.js"></script>
+    <script>
+        firebase.auth().setPersistence(firebase.auth.Auth.Persistence.SESSION)
+    </script>
+    
+    
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-md navbar-dark bg-dark pr-5"> 
+        <div class="navbar-collapse collapse w-100 order-3 dual-collapse2">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item border-right border-left" id="loginLink">
+                    <a href="" class="nav-link" id="loginBtn" data-toggle="modal" data-target="#SignInModal" >LOGIN</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="container p-5">
+        <div class="p-3 mb-3 col-6 offset-3 bg-info" id="homepage">
+            <h1 class="text-center">LENDIGI</h1>
+            <hr>
+            <h2>HOMEPAGE</h2>
+        </div>
+    </div>
+
+
+    <!-- SIGN IN MODAL -->
+    <div class="modal fade" id="SignInModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Login</h5>
+            <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">  
+                <form id="signInForm">
+                        <input type="email" class="form-control" name="email" id="loginEmail" placeholder="EMAIL"><br>
+                        <input type="password" class="form-control" name="password" id="loginPassword" placeholder="PASSWORD"><br>                
+                        
+                        <button id="closeSignIn" type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button onclick="" class="btn btn-primary" id="loginAdmin">LOGIN</button>
+                </form>
+
+            </div>
+        </div>
+        </div>
+    </div>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-alpha3/dist/js/bootstrap.bundle.min.js" integrity="sha384-popRpmFF9JQgExhfw5tZT4I9/CI5e2QcuUZPOVXb1m7qUmeR2b50u+YFEYe1wgzy" crossorigin="anonymous"></script>
+    <!-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW" crossorigin="anonymous"></script> -->
+    <script src="./js/login.js"></script>
+</body>
+</html>

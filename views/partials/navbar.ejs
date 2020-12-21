@@ -1,0 +1,41 @@
+<nav class="navbar navbar-expand-md navbar-dark bg-dark pr-5"> 
+    <div class="navbar-collapse collapse w-100 order-3 dual-collapse2">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item" id="homeLink">
+                <form action="/home" method="get">
+                    <button type="submit" class="nav-link btn" id="homeBtn">LendIGI</button>
+                </form>
+                
+            </li>
+        </ul>
+        <ul class="navbar-nav ml-auto">
+            <li class="nav-item border-right border-left mb-0" id="loansLink">
+                <form action="/loans" method="get">
+                    <!-- <input type="hidden" name="idToken" class="idToken" value="">  -->
+                    <button type="submit" class="nav-link btn" id="loansBtn">LOANS</button>
+                </form>
+                
+            </li>
+            <li class="nav-item border-right border-left mb-0" id="usersLink">
+                <form action="/users" method="get">
+                    <button type="submit" class="nav-link btn" id="usersBtn">USERS</button>
+                </form>
+                
+                
+            </li>
+            <li class="nav-item border-right border-left mb-0" id="adminsLink">
+                <form action="/adminsList" method="get">
+                    <button type="submit" class="nav-link btn" id="adminsBtn">ADMINS</button>
+                </form>
+                
+            </li>
+            <li class="nav-item border-right border-left" id="registerLink">
+                <a href="" class="nav-link" id="registerBtn" data-toggle="modal" data-target="#SignUpModal">CREATE ADMIN</a>
+            </li>
+            <li class="nav-item border-right border-left" id="logoutLink">
+                <a class="nav-link" id="logoutBtn" href="" >LOGOUT</a>
+            </li>
+        </ul>
+    </div>
+
+</nav>
